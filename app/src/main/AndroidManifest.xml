@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- This prototype is deliberately read-only. Do not add WRITE_CALENDAR. -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- MSAL의 선택적 하드웨어 보안키 모듈이 추가하지만 이 앱에서는 사용하지 않습니다. -->
+    <uses-permission
+        android:name="android.permission.NFC"
+        tools:node="remove" />
+    <uses-feature
+        android:name="android.hardware.nfc"
+        tools:node="remove" />
+    <uses-feature
+        android:name="android.hardware.usb.host"
+        tools:node="remove" />
+
+    <application
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="false"
+        android:icon="@drawable/ic_calendar_probe"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_calendar_probe"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GalaxyCalendarProbe">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.microsoft.identity.client.BrowserTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="com.example.galaxycalendarprobe"
+                    android:path="/gnC+jxZXIHgnLb6tUq7Hct8AA0="
+                    android:scheme="msauth" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".notifications.EventAlarmReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".notifications.AgendaAlarmReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".notifications.RescheduleReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".notice.NoticeAlarmReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".notice.NoticeRescheduleReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".mail.MailCaptureService"
+            android:exported="false"
+            android:label="@string/mail_notification_listener_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".mail.MailSummaryReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".mail.MailRescheduleReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".todo.TodoSummaryReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".todo.TodoRescheduleReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
