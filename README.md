@@ -162,24 +162,3 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 최신 설치용 APK는 GitHub의 **Releases**에서 제공합니다. APK를 업데이트 설치하면
 기존 앱 설정과 계정 연결이 유지됩니다.
-
-## Galaxy 실기기 확인 순서
-
-1. Samsung 캘린더 앱에서 Samsung 계정 캘린더가 동기화되고 표시되는지 확인합니다.
-2. 이 앱을 실행하고 캘린더 읽기 권한을 허용합니다.
-3. 목록에서 “Samsung 계정 후보” 또는 Samsung과 관련 있어 보이는 원본
-   `ACCOUNT_TYPE`의 캘린더를 찾습니다.
-4. 해당 캘린더를 눌러 앞으로 30일 일정이 표시되는지 확인합니다.
-
-판정 기준:
-
-- Samsung 캘린더 행과 일정이 모두 보이면 Samsung 계정 데이터가
-  `Calendar Provider`에 노출되는 것입니다.
-- 캘린더 행은 있지만 일정이 없으면 30일 내 일정 유무, `VISIBLE`, `SYNC_EVENTS`,
-  Samsung 캘린더의 동기화 설정을 확인합니다.
-- Samsung 관련 행 자체가 없으면 해당 One UI 구성에서 Samsung 계정 캘린더가
-  일반 `Calendar Provider`에 등록되지 않았거나, 다른 프로필·보안 폴더에 격리됐거나,
-  동기화가 꺼져 있을 수 있습니다.
-
-`VISIBLE=0`인 캘린더는 Android가 `Instances` 행을 생성하지 않을 수 있으므로,
-테스트할 캘린더는 Samsung 캘린더 앱에서 표시 상태로 두는 것이 좋습니다.
